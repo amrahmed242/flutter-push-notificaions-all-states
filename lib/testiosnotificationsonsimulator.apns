@@ -1,0 +1,8 @@
+{
+    "Simulator Target Bundle": "com.educatly.testoldfirebase",
+    "aps": {
+    "alert": "Push Notifications Test",
+    "sound": "default",
+    "badge": 1
+    }
+}

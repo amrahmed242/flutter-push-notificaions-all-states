@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutternotificationdemo/notification_service.dart';
+import 'package:flutternotificationdemo/preference.dart';
 
 void main() async {
   //Ensure all Platform Plugins Initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Instantiate Notification service
+  //init Preference service
+  await Preference.init();
   NotificationService();
 
   runApp(MyApp());
@@ -35,6 +39,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  @override
+  void initState() {
+    Timer.periodic(Duration(seconds: 2), (c) {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -44,6 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String ss1 = Preference.getString('key1') ?? 'empty';
+    String ss2 = Preference.getString('key2') ?? 'empty';
+    String ss3 = Preference.getString('key3') ?? 'empty';
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -55,6 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
+            Text(
+              DateTime.now().toIso8601String(),
+              textAlign: TextAlign.center,
+            ),
+            Text(ss1, textAlign: TextAlign.center),
+            Text(ss2, textAlign: TextAlign.center),
+            Text(ss3, textAlign: TextAlign.center),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
